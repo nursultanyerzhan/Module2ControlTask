@@ -5,6 +5,8 @@ const createTitle = () => {
     return h3;
 };
 
+const select = document.createElement('select');
+
 const createForm = () => {
 
     const form = document.createElement('form');
@@ -58,8 +60,6 @@ const createTableWrapper = () => {
 
     div.append(table);
     table.append(thead, tbody);
-    // tbody.append(createRow(1,13,'Купить слона', 1));
-    // tbody.append(createRow(1,115,'Помыть кота', 0));
 
     return div;
 }
@@ -88,10 +88,6 @@ export const createRow = (id, task, status) => {
     tr.append(tdNumber, tdTask, tdStatus, tdEvent);
 
     return tr;
-};
-
-const addRowToTable = () => {
-
 };
 
 export const initElements = () => {

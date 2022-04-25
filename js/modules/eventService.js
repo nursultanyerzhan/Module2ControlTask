@@ -1,6 +1,6 @@
 import * as storageService from './storageService.js';
 import * as creatingElements from './creatingElements.js';
-
+import { renderTableOrderNumbers } from './renderElements.js';
 
 
 const resetTask = () => {
@@ -14,7 +14,9 @@ const resetTask = () => {
 
 
 export const initEvents = (key) => {
+
     const form = document.querySelector('form');
+
     form.addEventListener('submit', e => {
         e.preventDefault();
         const task = new Object();
@@ -25,7 +27,9 @@ export const initEvents = (key) => {
         const tbody = document.querySelector('tbody');
         tbody.append(creatingElements.createRow(task.id, task.taskName, 0));
         resetTask();
+        renderTableOrderNumbers();
     });
+    
     form.addEventListener('reset', resetTask);
 
     const inputAddTask = document.querySelector('input');
@@ -48,6 +52,7 @@ export const initEvents = (key) => {
                 const taskId = tr.getAttribute('data-id');
                 tr.remove();
                 storageService.deleteTask(key, taskId);
+                renderTableOrderNumbers();
             }
         }
 
@@ -59,7 +64,5 @@ export const initEvents = (key) => {
             tr.children[2].textContent = 'Выполнена';
             storageService.endTask(key, taskId);
         }
-
-
     });
 };
