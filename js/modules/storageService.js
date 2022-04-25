@@ -24,7 +24,7 @@ const addNewTask = (key, userTask) => {
     }
 }
 
-const deleteTask = (key, taskId) => {
+export const deleteTask = (key, taskId) => {
     const tasks = getUserTasks(key);
     tasks.delete(taskId);
     setMapToStorage(key, Array.from(tasks.entries()));

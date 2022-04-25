@@ -15,6 +15,7 @@ const createForm = () => {
 
     const input = document.createElement('input');
     input.classList.add('form-control');
+    input.name = 'task';
     input.type = 'text';
     input.placeholder = 'ввести задачу';
 
@@ -22,15 +23,14 @@ const createForm = () => {
     buttonSubmit.classList.add('btn', 'btn-primary', 'me-3');
     buttonSubmit.type = 'submit';
     buttonSubmit.textContent = 'Сохранить';
+    buttonSubmit.disabled = 'disabled';
     
     const buttonReset = document.createElement('button');
     buttonReset.classList.add('btn', 'btn-warning');
     buttonReset.type = 'reset';
     buttonReset.textContent = 'Очистить';
 
-    form.append(label);
-    form.append(buttonSubmit);
-    form.append(buttonReset);
+    form.append(label,buttonSubmit,buttonReset );
     label.append(input);
 
     return form;
@@ -52,25 +52,22 @@ const createTableWrapper = () => {
     thStatus.textContent = 'Статус';
     const thEvent = document.createElement('th');
     thEvent.textContent = 'Действия';
-    thead.append(thNumber);
-    thead.append(thTask);
-    thead.append(thStatus);
-    thead.append(thEvent);
+    thead.append(thNumber, thTask, thStatus, thEvent);
 
     const tbody = document.createElement('tbody');
 
     div.append(table);
-    table.append(thead);
-    table.append(tbody);
-    tbody.append(createRow(1,'Купить слона', 1));
-    tbody.append(createRow(1,'Помыть кота', 0));
+    table.append(thead, tbody);
+    tbody.append(createRow(1,13,'Купить слона', 1));
+    tbody.append(createRow(1,115,'Помыть кота', 0));
 
     return div;
 }
 
-const createRow = (number, task, status) => {
+const createRow = (number, id, task, status) => {
     const tr = document.createElement('tr');
     tr.className = status === 1 ? 'table-success': 'table-light';
+    tr.setAttribute('data-id', id)
     const tdNumber = document.createElement('td');
     tdNumber.textContent = number;
     const tdTask = document.createElement('td');
@@ -86,14 +83,9 @@ const createRow = (number, task, status) => {
     const btnEnd = document.createElement('button');
     btnEnd.classList.add('btn', 'btn-success');
     btnEnd.textContent = 'Завершить';
-    tdEvent.append(btnDel);
-    tdEvent.append(btnEnd);
+    tdEvent.append(btnDel, btnEnd);
 
-
-    tr.append(tdNumber);
-    tr.append(tdTask);
-    tr.append(tdStatus);
-    tr.append(tdEvent);
+    tr.append(tdNumber, tdTask, tdStatus, tdEvent);
 
     return tr;
 };
@@ -106,8 +98,5 @@ export const initElements = () => {
     const form = createForm();
     const tableWrapper = createTableWrapper();
 
-    appContainer.append(title);
-    appContainer.append(form);
-    appContainer.append(tableWrapper);
-
+    appContainer.append(title, form, tableWrapper);
 };
