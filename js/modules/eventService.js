@@ -1,4 +1,5 @@
 import * as storageService from './storageService.js';
+import * as creatingElements from './creatingElements.js';
 
 
 
@@ -10,16 +11,19 @@ const resetTask = () => {
     inputAddTask.value = '';
 };
 
-const deleteTask = () => {
 
-};
 
 export const initEvents = (key) => {
     const form = document.querySelector('form');
     form.addEventListener('submit', e => {
         e.preventDefault();
-        const target = e.target;
-        console.log(target.task.value);
+        const task = new Object();
+        task.taskName = e.target.task.value;
+        task.status = 0;
+        task.id = storageService.addNewTask(key, task);
+
+        const tbody = document.querySelector('tbody');
+        tbody.append(creatingElements.createRow(task.id, task.taskName, 0));
         resetTask();
     });
     form.addEventListener('reset', resetTask);
@@ -46,5 +50,16 @@ export const initEvents = (key) => {
                 storageService.deleteTask(key, taskId);
             }
         }
+
+        if (target.className.includes('btn-success')) {
+            const tr = target.closest('tr');
+            const taskId = tr.getAttribute('data-id');
+            tr.className = 'table-success';
+            tr.children[1].className = 'text-decoration-line-through';
+            tr.children[2].textContent = 'Выполнена';
+            storageService.endTask(key, taskId);
+        }
+
+
     });
 };

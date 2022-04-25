@@ -58,18 +58,18 @@ const createTableWrapper = () => {
 
     div.append(table);
     table.append(thead, tbody);
-    tbody.append(createRow(1,13,'Купить слона', 1));
-    tbody.append(createRow(1,115,'Помыть кота', 0));
+    // tbody.append(createRow(1,13,'Купить слона', 1));
+    // tbody.append(createRow(1,115,'Помыть кота', 0));
 
     return div;
 }
 
-const createRow = (number, id, task, status) => {
+export const createRow = (id, task, status) => {
     const tr = document.createElement('tr');
     tr.className = status === 1 ? 'table-success': 'table-light';
     tr.setAttribute('data-id', id)
     const tdNumber = document.createElement('td');
-    tdNumber.textContent = number;
+    tdNumber.textContent = '#';
     const tdTask = document.createElement('td');
     tdTask.textContent = task;
     tdTask.className = status === 1 ? 'text-decoration-line-through' : 'task';
@@ -88,6 +88,10 @@ const createRow = (number, id, task, status) => {
     tr.append(tdNumber, tdTask, tdStatus, tdEvent);
 
     return tr;
+};
+
+const addRowToTable = () => {
+
 };
 
 export const initElements = () => {
