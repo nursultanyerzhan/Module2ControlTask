@@ -62,13 +62,11 @@ const createTableWrapper = () => {
     div.append(table);
     table.append(thead);
     table.append(tbody);
-    tbody.append(createRow(1,'Купить слона', 1));
-    tbody.append(createRow(1,'Помыть кота', 0));
 
     return div;
 }
 
-const createRow = (number, task, status) => {
+export const createRow = (number, task, status) => {
     const tr = document.createElement('tr');
     tr.className = status === 1 ? 'table-success': 'table-light';
     const tdNumber = document.createElement('td');
