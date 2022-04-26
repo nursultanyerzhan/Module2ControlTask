@@ -5,7 +5,22 @@ const createTitle = () => {
     return h3;
 };
 
-const select = document.createElement('select');
+const createOption = (value, textContent) => {
+    const option = document.createElement('option');
+    option.value = value;
+    option.textContent = textContent;
+
+    return option;
+};
+
+const createSelect = () => {
+    const select = document.createElement('select');
+    select.className = 'form-select';
+    select.name = 'importance';
+
+    select.append(createOption(1, 'обычная'), createOption(2, 'важная'), createOption(3, 'срочная'));
+    return select;
+};
 
 const createForm = () => {
 
@@ -21,18 +36,20 @@ const createForm = () => {
     input.type = 'text';
     input.placeholder = 'ввести задачу';
 
+    const select = createSelect();
+
     const buttonSubmit = document.createElement('button');
     buttonSubmit.classList.add('btn', 'btn-primary', 'me-3');
     buttonSubmit.type = 'submit';
     buttonSubmit.textContent = 'Сохранить';
     buttonSubmit.disabled = 'disabled';
-    
+
     const buttonReset = document.createElement('button');
     buttonReset.classList.add('btn', 'btn-warning');
     buttonReset.type = 'reset';
     buttonReset.textContent = 'Очистить';
 
-    form.append(label,buttonSubmit,buttonReset );
+    form.append(label, select, buttonSubmit, buttonReset);
     label.append(input);
 
     return form;
@@ -40,7 +57,7 @@ const createForm = () => {
 
 const createTableWrapper = () => {
     const div = document.createElement('div');
-    div.className='table-wrapper';
+    div.className = 'table-wrapper';
 
     const table = document.createElement('table');
     table.classList.add('table', 'table-hover', 'table-bordered');
@@ -64,18 +81,30 @@ const createTableWrapper = () => {
     return div;
 }
 
-export const createRow = (id, task, status) => {
+const defineTrClassName = (status, importance) => {
+    if (status === 1)
+        return 'table-success';
+    
+    switch (importance) {
+        case '1': return 'table-light';
+        case '2': return 'table-warning';
+        case '3': return 'table-danger';
+    }
+};
+
+export const createRow = (id, task, status, importance) => {
     const tr = document.createElement('tr');
-    tr.className = status === 1 ? 'table-success': 'table-light';
+    tr.className = defineTrClassName(status, importance);
     tr.setAttribute('data-id', id)
     const tdNumber = document.createElement('td');
     tdNumber.textContent = '#';
     const tdTask = document.createElement('td');
     tdTask.textContent = task;
+    tdTask.setAttribute('contenteditable', true);
     tdTask.className = status === 1 ? 'text-decoration-line-through' : 'task';
     const tdStatus = document.createElement('td');
     tdStatus.textContent = status === 1 ? 'Выполнена' : 'В процессе';
-    
+
     const tdEvent = document.createElement('td');
     const btnDel = document.createElement('button');
     btnDel.classList.add('btn', 'btn-danger');
@@ -93,7 +122,7 @@ export const createRow = (id, task, status) => {
 export const initElements = () => {
     const appContainer = document.querySelector('.app-container');
     appContainer.classList.add('vh-100', 'w-100', 'd-flex', 'align-items-center', 'justify-content-center', 'flex-column');
-    
+
     const title = createTitle();
     const form = createForm();
     const tableWrapper = createTableWrapper();

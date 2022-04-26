@@ -32,9 +32,11 @@ export const deleteTask = (key, taskId) => {
     setMapToStorage(key, Array.from(tasks.entries()));
 };
 
-const editTask = (key, editedTask) => {
+export const editTask = (key, id, textContent) => {
     const tasks = getUserTasks(key);
-    tasks.set(editedTask.id, editedTask);
+    const task = tasks.get(id);
+    task.taskName = textContent;
+    tasks.set(id, task);
     setMapToStorage(key, Array.from(tasks.entries()));
 };
 
