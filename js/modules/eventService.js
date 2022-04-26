@@ -7,7 +7,7 @@ const resetTask = () => {
     const submitBtn = document.querySelector('button[type="submit"]');
     submitBtn.setAttribute('disabled', true);
 
-    const inputAddTask = document.querySelector('input');
+    const inputAddTask = document.querySelector('#inputTask');
     inputAddTask.value = '';
 };
 
@@ -15,7 +15,7 @@ const resetTask = () => {
 
 export const initEvents = (key) => {
 
-    const form = document.querySelector('form');
+    const form = document.querySelector('#formAddTask');
 
     form.addEventListener('submit', e => {
         e.preventDefault();
@@ -33,7 +33,7 @@ export const initEvents = (key) => {
 
     form.addEventListener('reset', resetTask);
 
-    const inputAddTask = document.querySelector('input');
+    const inputAddTask = document.querySelector('#inputTask');
     inputAddTask.addEventListener('keyup', e => {
         e.preventDefault();
         const submitBtn = document.querySelector('button[type="submit"]');

@@ -26,6 +26,7 @@ const createForm = () => {
 
     const form = document.createElement('form');
     form.classList.add('d-flex', 'align-items-center', 'mb-3');
+    form.id = 'formAddTask';
 
     const label = document.createElement('label');
     label.classList.add('form-group', 'me-3', 'mb-0');
@@ -34,7 +35,9 @@ const createForm = () => {
     input.classList.add('form-control');
     input.name = 'task';
     input.type = 'text';
+    input.id = 'inputTask';
     input.placeholder = 'ввести задачу';
+    input.style.width = '300px';
 
     const select = createSelect();
 

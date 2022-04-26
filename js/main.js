@@ -1,8 +1,3 @@
-import { initElements } from './modules/creatingElements.js';
-import { initEvents } from './modules/eventService.js';
-import { renderTable } from './modules/renderElements.js';
+import { initAuthorize } from './modules/authorize.js';
 
-const key = prompt('Ваш логин: ');
-initElements();
-renderTable(key);
-initEvents(key);
+initAuthorize();
